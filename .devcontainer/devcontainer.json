@@ -1,0 +1,45 @@
+{
+	"name": "Grabitar MCP Server with VS Code Extension",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": "true",
+			"configureZshAsDefaultShell": "true",
+			"installOhMyZsh": "true",
+			"upgradePackages": "false"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "os-provided"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts",
+			"nodeGypDependencies": true
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "/workspaces/grabitar/.venv/bin/python",
+				"python.terminal.activateEnvironment": true,
+				"mcp.servers": {
+					"grabitar": {
+						"command": "python",
+						"args": [
+							"/workspaces/grabitar/server.py",
+							"--mcp"
+						],
+						"cwd": "/workspaces/grabitar"
+					}
+				}
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff"
+			]
+		}
+	},
+	"postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt && cd vscode-extension && npm install -g @vscode/vsce && npm install --production && vsce package --out grabitar-1.1.0.vsix && code --install-extension grabitar-1.1.0.vsix && cd .. && echo '✅ Dev container ready! Grabitar MCP extension installed.'"
+}x this 

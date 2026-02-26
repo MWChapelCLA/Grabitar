@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grabitar Test Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .test-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .test-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .test-card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .test-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .test-card ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .test-card li {
+            margin: 8px 0;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f56565;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .instructions li {
+            margin: 10px 0;
+        }
+
+        code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .banner h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Overlay Controls */
+        .grabitar-overlay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: white;
+            min-width: 200px;
+        }
+
+        .grabitar-overlay.minimized {
+            padding: 8px 12px;
+            min-width: auto;
+        }
+
+        .grabitar-overlay.minimized .overlay-content {
+            display: none;
+        }
+
+        .overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: move;
+        }
+
+        .overlay-title {
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .overlay-minimize {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0 5px;
+        }
+
+        .overlay-btn {
+            display: block;
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: background 0.2s;
+        }
+
+        .overlay-btn:hover {
+            background: #5568d3;
+        }
+
+        .overlay-btn:active {
+            background: #4557b2;
+        }
+
+        /* Context Menu */
+        .grabitar-context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10001;
+            min-width: 200px;
+            display: none;
+        }
+
+        .context-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        .context-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .context-menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        .context-menu-separator {
+            height: 1px;
+            background: #ddd;
+            margin: 5px 0;
+        }
+
+        /* Selection Overlay */
+        .selection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            cursor: crosshair;
+            display: none;
+        }
+
+        .selection-box {
+            position: absolute;
+            border: 2px solid #667eea;
+            background: rgba(102, 126, 234, 0.2);
+            pointer-events: none;
+        }
+
+        /* Annotation Canvas */
+        .annotation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .annotation-overlay.active {
+            pointer-events: all;
+        }
+
+        /* Status Messages */
+        .status-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 10002;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 Grabitar Test Page</h1>
+            <p class="subtitle">Use this page to test the Grabitar overlay screen capture tool</p>
+        </header>
+
+        <div class="instructions">
+            <h3>🎯 How to Use Grabitar Overlay</h3>
+            <ol>
+                <li>Run the overlay: <code>python overlay.py</code></li>
+                <li>Right-click anywhere (on this page or any window) to open the context menu</li>
+                <li>Select an action:
+                    <ul>
+                        <li><strong>📷 Capture Area</strong> - Click and drag to capture a region</li>
+                        <li><strong>🖼️ Capture Window</strong> - Capture the full screen</li>
+                        <li><strong>⬛ Add Square</strong> - Add a box annotation to the current capture</li>
+                        <li><strong>📝 Add Text Annotation</strong> - Add text to the current capture</li>
+                    </ul>
+                </li>
+                <li>Captured images are sent to VS Code and available in Copilot chat</li>
+            </ol>
+        </div>
+
+        <div class="banner">
+            <h2>🎨 Test Capturing This Banner</h2>
+            <p>Try capturing this colorful section with the overlay!</p>
+        </div>
+
+        <div class="test-sections">
+            <div class="test-card">
+                <h2>📊 Feature Card 1</h2>
+                <p>This is a test card with some content you can capture.</p>
+                <ul>
+                    <li>Item one</li>
+                    <li>Item two</li>
+                    <li>Item three</li>
+                </ul>
+                <button class="btn">Click Me</button>
+            </div>
+
+            <div class="test-card">
+                <h2>🔧 Feature Card 2</h2>
+                <p>Another test card with different styling.</p>
+                <ul>
+                    <li>Feature A</li>
+                    <li>Feature B</li>
+                    <li>Feature C</li>
+                </ul>
+                <button class="btn btn-success">Success!</button>
+            </div>
+
+            <div class="test-card">
+                <h2>⚡ Feature Card 3</h2>
+                <p>Try capturing individual cards or multiple cards together.</p>
+                <ul>
+                    <li>Option X</li>
+                    <li>Option Y</li>
+                    <li>Option Z</li>
+                </ul>
+                <button class="btn btn-danger">Alert</button>
+            </div>
+        </div>
+
+        <div class="test-sections">
+            <div class="test-card">
+                <h2>💡 Test Annotations</h2>
+                <p>After capturing, try adding annotations:</p>
+                <ul>
+                    <li>Draw boxes around specific elements</li>
+                    <li>Add text labels to highlight areas</li>
+                    <li>Use different colors for emphasis</li>
+                </ul>
+            </div>
+
+            <div class="test-card">
+                <h2>🚀 Integration</h2>
+                <p>Captures automatically integrate with:</p>
+                <ul>
+                    <li>VS Code Copilot Chat</li>
+                    <li>MCP Protocol</li>
+                    <li>Image context for AI</li>
+                </ul>
+            </div>
+
+            <div class="test-card">
+                <h2>🎯 Practice Areas</h2>
+                <p>Try these exercises:</p>
+                <ul>
+                    <li>Capture just this card</li>
+                    <li>Capture multiple cards</li>
+                    <li>Capture the header</li>
+                    <li>Add annotations to your captures</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grabitar Overlay Controls -->
+    <div class="grabitar-overlay" id="grabitarOverlay">
+        <div class="overlay-header" id="overlayHeader">
+            <div class="overlay-title">
+                <span>📸</span>
+                <span>Grabitar</span>
+            </div>
+            <button class="overlay-minimize" id="overlayMinimize">−</button>
+        </div>
+        <div class="overlay-content">
+            <button class="overlay-btn" id="captureArea">📷 Capture Area</button>
+            <button class="overlay-btn" id="captureWindow">🖼️ Capture Window</button>
+            <button class="overlay-btn" id="addSquare">⬛ Add Square</button>
+            <button class="overlay-btn" id="addText">📝 Add Text</button>
+            <button class="overlay-btn" id="sendVSCode">✓ Send to VS Code</button>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="grabitar-context-menu" id="contextMenu">
+        <div class="context-menu-item" data-action="capture-area">
+            <span>📷</span>
+            <span>Capture Area</span>
+        </div>
+        <div class="context-menu-item" data-action="capture-window">
+            <span>🖼️</span>
+            <span>Capture Window</span>
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="add-square">
+            <span>⬛</span>
+            <span>Add Square</span>
+        </div>
+        <div class="context-menu-item" data-action="add-text">
+            <span>📝</span>
+            <span>Add Text Annotation</span>
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="send-vscode">
+            <span>✓</span>
+            <span>Send to VS Code</span>
+        </div>
+    </div>
+
+    <!-- Selection Overlay -->
+    <div class="selection-overlay" id="selectionOverlay">
+        <div class="selection-box" id="selectionBox"></div>
+    </div>
+
+    <!-- Annotation Canvas -->
+    <canvas class="annotation-overlay" id="annotationCanvas"></canvas>
+
+    <!-- Status Message -->
+    <div class="status-message" id="statusMessage"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
+
+</body>
+</html>

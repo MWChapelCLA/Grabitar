@@ -1,0 +1,14 @@
+.vscode/**
+.vscode-test/**
+.gitignore
+.git/**
+*.vsix
+node_modules/**
+.eslintrc.json
+.DS_Store
+*.log
+__pycache__/**
+*.pyc
+.pytest_cache/**
+.venv/**
+*.egg-info/**

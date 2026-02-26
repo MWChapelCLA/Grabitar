@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Node modules
+node_modules/
+
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+test-*.html
+test_*.py
+test_*.sh
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~

@@ -1,0 +1,124 @@
+{
+  "name": "grabitar",
+  "displayName": "Grabitar - Screen Capture for Copilot",
+  "description": "Injectable screen capture overlay with @grabitar chat participant. Capture, annotate, and send directly to Copilot chat - no clipboard needed!",
+  "version": "1.1.0",
+  "publisher": "grabitar",
+  "author": {
+    "name": "Michael Chapel"
+  },
+  "icon": "Designer.png",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "copilot",
+    "mcp",
+    "screenshot",
+    "capture",
+    "annotation",
+    "screen",
+    "image"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguageModelTool:grabitar_capture",
+    "onLanguageModelTool:grabitar_show_capture"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "grabitar.startServer",
+        "title": "Grabitar: Start Server"
+      },
+      {
+        "command": "grabitar.stopServer",
+        "title": "Grabitar: Stop Server"
+      },
+      {
+        "command": "grabitar.getBookmarklet",
+        "title": "Grabitar: Get Bookmarklet Code"
+      },
+      {
+        "command": "grabitar.openTestPage",
+        "title": "Grabitar: Open Test Page"
+      },
+      {
+        "command": "grabitar.showStatus",
+        "title": "Grabitar: Show Server Status"
+      },
+      {
+        "command": "grabitar.sendToChat",
+        "title": "Grabitar: Send Latest Capture to Chat"
+      }
+    ],
+    "chatParticipants": [
+      {
+        "id": "grabitar.participant",
+        "name": "grabitar",
+        "description": "Screen capture and annotation assistant",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "capture",
+            "description": "Capture the current browser window"
+          },
+          {
+            "name": "list",
+            "description": "List all captures in the current session"
+          },
+          {
+            "name": "show",
+            "description": "Show a specific capture"
+          },
+          {
+            "name": "latest",
+            "description": "Show the latest capture"
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Grabitar",
+      "properties": {
+        "grabitar.port": {
+          "type": "number",
+          "default": 9876,
+          "description": "Port for Grabitar server"
+        },
+        "grabitar.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start Grabitar server on VS Code startup"
+        },
+        "grabitar.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python executable (or 'python', 'python3')"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelchapel/grabitar"
+  },
+  "bugs": {
+    "url": "https://github.com/michaelchapel/grabitar/issues"
+  },
+  "homepage": "https://github.com/michaelchapel/grabitar#readme",
+  "license": "MIT"
+}
