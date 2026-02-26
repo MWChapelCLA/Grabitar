@@ -25,7 +25,7 @@ Grabitar is an **injectable overlay** that works on ANY webpage, allowing you to
 │  - Floating overlay controls        │
 │  - Right-click context menu         │
 │  - Canvas for annotations           │
-│  - html2canvas for screenshots      │
+│  - html-to-image for screenshots    │
 └──────────────┬──────────────────────┘
                │ HTTP API
 ┌──────────────▼──────────────────────┐

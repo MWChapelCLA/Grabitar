@@ -41,7 +41,7 @@ All notable changes to the Grabitar extension will be documented in this file.
 - Configuration options for port, auto-start, and Python path
 - MCP protocol integration for GitHub Copilot
 - Injectable overlay script served from local server (port 9876)
-- Screen capture with html2canvas (browser-based)
+- Screen capture with html-to-image (browser-based)
 - Annotation tools (box and text)
 - Clipboard integration for pasting into Copilot
 - Right-click context menu on any webpage
@@ -62,7 +62,7 @@ All notable changes to the Grabitar extension will be documented in this file.
 - Python backend with FastAPI
 - PIL/Pillow for image processing
 - mss for OS-level screen capture (fallback)
-- html2canvas for browser-based capture
+- html-to-image for browser-based capture
 - CORS enabled for cross-origin injection
 - Session-based capture storage (in-memory)
 
