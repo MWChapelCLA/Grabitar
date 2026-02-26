@@ -1,3 +1,5 @@
+![Grabitar Logo](/icon/Logo.png)
+
 # 📸 Grabitar - Injectable Screen Capture MCP Server
 
 Grabitar is an **injectable overlay** that works on ANY webpage, allowing you to capture content, annotate it, and paste directly into VS Code Copilot chat. It integrates with GitHub Copilot via the Model Context Protocol (MCP).

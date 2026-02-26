@@ -25,7 +25,7 @@
 				"python.terminal.activateEnvironment": true,
 				"mcp.servers": {
 					"grabitar": {
-						"command": "python",
+						"command": "/workspaces/grabitar/.venv/bin/python",
 						"args": [
 							"/workspaces/grabitar/server.py",
 							"--mcp"
@@ -41,5 +41,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt && cd vscode-extension && npm install -g @vscode/vsce && npm install --production && vsce package --out grabitar-1.1.0.vsix && code --install-extension grabitar-1.1.0.vsix && cd .. && echo '✅ Dev container ready! Grabitar MCP extension installed.'"
-}x this 
+	"postCreateCommand": "python3 -m venv .venv && .venv/bin/pip install --upgrade pip && .venv/bin/pip install -r requirements.txt && cd vscode-extension && npm install -g @vscode/vsce && npm install --production && vsce package --out grabitar-1.1.0.vsix && code --install-extension grabitar-1.1.0.vsix && cd .. && echo '✅ Dev container ready! Grabitar MCP extension installed.'"
+}
